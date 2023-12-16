@@ -278,7 +278,7 @@ namespace shaiya
         UINT32 money;
     };
 
-    struct TownTeleportScrollIncoming
+    struct ItemTownScrollIncoming
     {
         UINT16 opcode{ 0x55A };
         UINT8 bag;
