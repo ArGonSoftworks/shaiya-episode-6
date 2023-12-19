@@ -53,16 +53,13 @@ namespace character_list
             character.mapId = user->characterList[slot].mapId;
             character.nameChange = user->characterList[slot].nameChange;
 
-            auto it = g_equipment.find(user->userId);
-            if (it != g_equipment.end())
-                std::memcpy(&character.equipment, &it->second[slot], sizeof(Equipment0403));
-            else
-                std::memcpy(&character.equipment, &user->characterList[slot].equipment, sizeof(Equipment));
+            if (auto it = g_equipment.find(user->userId); it != g_equipment.end())
+                character.equipment = it->second[slot];
 
             character.cloakBadge = user->characterList[slot].cloakBadge;
             character.charName = user->characterList[slot].name;
+            packet.characterList[slot] = character;
 
-            std::memcpy(&packet.characterList[slot], &character, sizeof(Character0403));
             ++packet.characterCount;
         }
 
@@ -83,8 +80,7 @@ namespace character_list
 
     void init_equipment(CUser* user, int characterSlot, int equipmentSlot, int type, int typeId)
     {
-        auto it = g_equipment.find(user->userId);
-        if (it != g_equipment.end())
+        if (auto it = g_equipment.find(user->userId); it != g_equipment.end())
         {
             it->second[characterSlot].type[equipmentSlot] = type;
             it->second[characterSlot].typeId[equipmentSlot] = typeId;

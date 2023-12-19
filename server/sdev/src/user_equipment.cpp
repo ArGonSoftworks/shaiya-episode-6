@@ -88,7 +88,8 @@ namespace user_equipment
 
             item0307.gems = item->gems;
             item0307.craftName = item->craftName;
-            std::memcpy(&packet.itemList[packet.itemCount], &item0307, sizeof(Item0307));
+            packet.itemList[packet.itemCount] = item0307;
+
             ++packet.itemCount;
         }
 

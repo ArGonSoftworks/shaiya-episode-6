@@ -30,7 +30,7 @@ namespace packet_gem
     bool is_perfect_lapisian(CItem* lapisian, CItem* upgradeItem)
     {
         auto enchantStep = CItem::GetEnchantStep(upgradeItem);
-        auto lapisianType = static_cast<CGameData::PerfectLapisianType>(lapisian->itemInfo->country);
+        auto lapisianType = static_cast<CGameData::ItemPerfectLapisianType>(lapisian->itemInfo->country);
 
         if (CItem::IsWeapon(upgradeItem))
         {
@@ -47,7 +47,7 @@ namespace packet_gem
             }
 
             if (enchantStep == lapisian->itemInfo->range)
-                if (lapisianType == CGameData::PerfectLapisianType::Weapon)
+                if (lapisianType == CGameData::ItemPerfectLapisianType::Weapon)
                     return true;
         }
         else
@@ -65,7 +65,7 @@ namespace packet_gem
             }
 
             if (enchantStep == lapisian->itemInfo->range)
-                if (lapisianType == CGameData::PerfectLapisianType::Armor)
+                if (lapisianType == CGameData::ItemPerfectLapisianType::Armor)
                     return true;
         }
 

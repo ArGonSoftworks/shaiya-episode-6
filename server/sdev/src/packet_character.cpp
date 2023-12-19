@@ -79,7 +79,8 @@ namespace packet_character
             #endif
 
             item0711.craftName = item->craftName;
-            std::memcpy(&warehouse.itemList[warehouse.itemCount], &item0711, sizeof(Item0711));
+            warehouse.itemList[warehouse.itemCount] = item0711;
+
             ++warehouse.itemCount;
 
             if (warehouse.itemCount != max_item_list_count)

@@ -69,12 +69,6 @@ defined SHAIYA_EP6_4_PT
 #define EXPAND(x, y) CONCAT(x, y)
 #define PAD(size) char EXPAND(pad, __LINE__)[size]
 
-template<class T, int N>
-using Array = std::array<T, N>;
-
-typedef unsigned Address;
-typedef ULONG TickCount;
-
 namespace shaiya
 {
     #ifdef SHAIYA_EP6_4_PT
@@ -97,7 +91,12 @@ namespace shaiya
     constexpr int max_warehouse_slot = 240;
     constexpr int min_warehouse_slot = 120;
 
+    template<class T, int N>
+    using Array = std::array<T, N>;
+
+    typedef ULONG Address;
     typedef UINT8* Packet;
+
     typedef Array<char, 128> ChatMessage;
 
     typedef ULONG CharId;
