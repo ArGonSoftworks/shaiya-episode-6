@@ -194,8 +194,7 @@ namespace packet_gem
             return;
         }
 
-        // optional
-        if (item->makeType == ItemMakeType::Q)
+        if (item->makeType == ItemMakeType::QuestResult)
         {
             SConnection::Send(&user->connection, &outgoing, 3);
             return;

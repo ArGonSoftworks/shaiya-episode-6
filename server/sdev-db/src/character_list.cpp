@@ -163,6 +163,6 @@ void hook::character_list()
     util::detour((void*)0x421AA5, naked_0x421AA5, 6);
     util::detour((void*)0x4223F7, naked_0x4223F7, 7);
 
-    std::uint8_t slotCount = item_list_size;
-    util::write_memory((void*)0x42220B, &slotCount, 1);
+    // DBCharacter::LoadCharacterList
+    util::write_memory((void*)0x42220B, item_list_size, 1);
 }
