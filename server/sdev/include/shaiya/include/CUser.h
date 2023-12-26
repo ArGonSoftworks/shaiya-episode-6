@@ -23,6 +23,26 @@ namespace shaiya
     struct CZone;
 
     #pragma pack(push, 1)
+    struct BillingItem
+    {
+        UINT8 type;
+        UINT8 typeId;
+        UINT8 count;
+    };
+
+    typedef Array<BillingItem, 240> Bank;
+
+    struct ProductItem
+    {
+        ProductCode productCode;  //0x00
+        PAD(3);
+        ULONG purchaseDate;       //0x18
+        UINT32 itemPrice;         //0x1C
+        // 0x20
+    };
+
+    typedef Array<ProductItem, 10> ProductLog;
+
     // custom
     struct UserActivableSkill
     {
@@ -50,21 +70,6 @@ namespace shaiya
         Water2,
         Earth2,
         Wind2
-    };
-
-    struct UserBillingItem
-    {
-        UINT8 type;
-        UINT8 typeId;
-        UINT8 count;
-    };
-
-    struct UserBuyListItem
-    {
-        ProductCode productCode;
-        PAD(3);
-        ULONG purchaseDate;
-        UINT32 itemPrice;
     };
 
     enum struct UserCharmType : UINT32
@@ -283,13 +288,12 @@ namespace shaiya
     {
         SConnection connection;              //0x00
         SVector pos;                         //0xD0
-        // charId
-        ULONG id;                            //0xDC
+        CharId id;                           //0xDC
         CZone* zone;                         //0xE0
         UINT32 cellX;                        //0xE4
         UINT32 cellZ;                        //0xE8
         PAD(60);
-        ULONG charId;                        //0x128
+        CharId charId;                       //0x128
         UINT8 slot;                          //0x12C
         Country country;                     //0x12D
         Family family;                       //0x12E
@@ -331,10 +335,9 @@ namespace shaiya
         CharName charName;                   //0x184
         Array<UINT8, 13> itemQualityLv;      //0x199
         Array<UINT16, 13> itemQuality;       //0x1A6
-        // 0x1C0
-        Array<Array<CItem*, 24>, 6> inventory;
-        Array<CItem*, 240> warehouse;        //0x400
-        Array<UserBillingItem, 240> bank;    //0x7C0
+        Inventory inventory;                 //0x1C0
+        Warehouse warehouse;                 //0x400
+        Bank bank;                           //0x7C0
         SSyncList<CSkill> applySkillList;    //0xA90
         UINT32 skillCount;                   //0xABC
         Array<CSkill*, 256> skill;           //0xAC0
@@ -582,11 +585,11 @@ namespace shaiya
         BOOL continuousResurrection;         //0x5974
         BOOL nameChange;                     //0x5978
         BOOL battlefieldRune;                //0x597C
-        Array<UserBuyListItem, 10> buyList;  //0x5980
+        ProductLog productLog;               //0x5980
         UINT32 points;                       //0x5AC0
         volatile UINT disableShop;           //0x5AC4
         DWORD reloadPointTime;               //0x5AC8
-        Array<UserBillingItem, 240> gift;    //0x5ACC
+        Bank storedPointItem;                //0x5ACC
         // custom
         UINT32 townScrollGateIndex;          //0x5D9C
         UserActivableSkill activableSkill;   //0x5DA0
@@ -649,6 +652,7 @@ namespace shaiya
         static void SendSpeed(CUser* user/*ecx*/);
         static void SendUserShape(CUser* user);
         static void SetAttack(CUser* user/*esi*/);
+        static void SetGameLogMain(CUser* user/*edi*/, void* packet/*esi*/);
         static void SetSkillAbility(CUser* user, int typeEffect/*ecx*/, int type/*edx*/, int value/*eax*/);
         static void StatResetSkill(CUser* user/*eax*/, BOOL event);
         static void StatResetStatus(CUser* user/*edi*/, BOOL event);

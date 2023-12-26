@@ -480,6 +480,18 @@ void CUser::SetAttack(CUser* user/*esi*/)
     }
 }
 
+void CUser::SetGameLogMain(CUser* user/*edi*/, void* packet/*esi*/)
+{
+    Address u0x467F60 = 0x467F60;
+
+    __asm
+    {
+        mov esi,packet
+        mov edi,user
+        call u0x467F60
+    }
+}
+
 void CUser::SetSkillAbility(CUser* user, int typeEffect/*ecx*/, int _type/*edx*/, int value/*eax*/)
 {
     Address u0x495570 = 0x495570;

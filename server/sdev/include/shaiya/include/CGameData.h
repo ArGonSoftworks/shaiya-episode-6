@@ -8,7 +8,6 @@ namespace shaiya
     // item effect 59 (EP5 itemId 100169)
     static Address g_ItemSpecialMoveWar = 0x56E668;
 
-    typedef Array<char, 32> ItemName;
     typedef Array<char, 32> MobName;
     typedef Array<char, 51> ProductName;
     typedef Array<char, 32> SkillName;
