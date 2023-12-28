@@ -1,9 +1,9 @@
-name: Build 5.4 server library
+name: Build 6.0 server library
 
 on: [push, pull_request]
 
 jobs:
-  build-5-4-server:
+  build-6-0:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
@@ -11,7 +11,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
-      - run: msbuild server/sdev.sln /p:configuration=release /p:platform="x86"
+      - run: msbuild server/sdev.sln /p:configuration=release /p:platform="x86" /p:ShaiyaEpisode=6
       - uses: actions/upload-artifact@v1
         with:
           name: sdev.dll

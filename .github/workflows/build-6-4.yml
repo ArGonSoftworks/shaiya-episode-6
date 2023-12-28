@@ -1,9 +1,9 @@
-name: Build 6.4 PT server libraries
+name: Build 6.4 server libraries
 
 on: [push, pull_request]
 
 jobs:
-  build-6-4-pt-server:
+  build-6-4:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
